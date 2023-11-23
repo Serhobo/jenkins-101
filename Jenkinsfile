@@ -29,7 +29,7 @@ pipeline {
                 script {
                     withCredentials([file(credentialsId: '4f9f3476-449a-49fe-ab80-e775559a05fb', variable: 'GOOGLE_CREDENTIALS')]) {
                         sh "echo '\$GOOGLE_CREDENTIALS' > /tmp/key.json"
-                        sh 'gcloud auth activate-service-account --key-file=/tmp/key.json'
+                        sh 'gcloud auth activate-service-account --key-file=$WORKSPACE/keyfile.json'
                         sh "gcloud config set project $GCP_PROJECT_ID"
                         sh "gcloud compute instances create $GCE_INSTANCE_NAME --image-family=$GCE_IMAGE_FAMILY --image-project=$GCE_IMAGE_PROJECT"
                     }
