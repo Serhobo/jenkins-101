@@ -10,6 +10,7 @@ pipeline {
         GCE_INSTANCE_NAME = 'temp_in_class_lab_3_thing'
         GCE_IMAGE_FAMILY = 'ubuntu-2004-lts'
         GCE_IMAGE_PROJECT = 'ubuntu-os-cloud'
+        GIT_CREDENTIALS = credentials('c85cbd89-c17b-4204-bd32-f28a5c463305')
     }
     triggers {
         pollSCM '*/5 * * * *'
