@@ -4,6 +4,13 @@ pipeline {
             label 'docker-agent-python'
             }
       }
+    environment {
+        GOOGLE_CREDENTIALS = credentials('4f9f3476-449a-49fe-ab80-e775559a05fb')
+        GCP_PROJECT_ID = 'in-class-lab-3-405222'
+        GCE_INSTANCE_NAME = 'temp_in_class_lab_3_thing'
+        GCE_IMAGE_FAMILY = 'ubuntu-2004-lts'
+        GCE_IMAGE_PROJECT = 'ubuntu-os-cloud'
+    }
     triggers {
         pollSCM '*/5 * * * *'
     }
@@ -21,10 +28,10 @@ pipeline {
             steps {
                 script {
                     withCredentials([file(credentialsId: '4f9f3476-449a-49fe-ab80-e775559a05fb', variable: 'GOOGLE_CREDENTIALS')]) {
-                        sh "echo '$GOOGLE_CREDENTIALS' > /tmp/key.json"
+                        sh "echo '\$GOOGLE_CREDENTIALS' > /tmp/key.json"
                         sh 'gcloud auth activate-service-account --key-file=/tmp/key.json'
-                        sh "gcloud config set project $in-class-lab-3-405222"
-                        sh "gcloud compute instances create $temp_in_class_lab_3_thing --image-family=$ubuntu-2004-lts --image-project=$ubuntu-os-cloud"
+                        sh "gcloud config set project $GCP_PROJECT_ID"
+                        sh "gcloud compute instances create $GCE_INSTANCE_NAME --image-family=$GCE_IMAGE_FAMILY --image-project=$GCE_IMAGE_PROJECT"
                     }
                 }
             }
