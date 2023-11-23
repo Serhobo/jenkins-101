@@ -46,6 +46,14 @@ pipeline {
             }
         }
 
+        stage('Set Up Stackdriver Monitoring') {
+            steps {
+                script {
+                   sh 'gcloud monitoring dashboards create --config-from-file=stackdriver-config.yaml'
+                }
+            }
+        }
+
         stage('Test') {
             steps {
                 echo "Testing.."
