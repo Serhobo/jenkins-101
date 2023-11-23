@@ -18,9 +18,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                script {
-                    checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/Serhobo/jenkins-101', credentialsId: env.GIT_CREDENTIALS]]])
-                }
+                git 'https://github.com/Serhobo/jenkins-101.git'
             }
         }
 
